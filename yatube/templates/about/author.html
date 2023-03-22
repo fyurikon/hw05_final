@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block title %}Об авторе проекта{% endblock %}
+{% load static %}
+{% block content %}
+<style type="text/css">
+  img {
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  h1 {
+    font-size: 50px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+  }
+
+  h2 {
+    margin-top: 40px;
+    margin-bottom: 20px;
+  }
+
+  p {
+    font-size: 18px;
+  }
+  </style>
+
+<div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h1>Филатов Юрий</h1>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+        <p>Я работал инженером АСУТП на протяжении последних 10 лет.
+          Последние пять лет я занимался системами контроля качества на
+          бумагоделательных машинах. В мои обязанности входило, как
+          электро-механическое обслуживание оборудования,
+          так и проведение настройки и тестирования моделей управления
+          качеством полотна в машинном и поперечном направлении. Также, я
+          занимался анализом технологических параметров
+          с целью выявления возможных точек улучшения качества.</p>
+        <p>
+          В 2021 году я решил расширить сферу деятельности и заняться
+          построением моделей
+          не только для систем контроля качества бумагоделательных машин,
+          но и для любых
+          других процессов. Так я и пришёл к языку программирования python и
+          машинному обучению.
+        </p>
+      </div>
+      <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+        <img src="{% static 'img/me.jpg' %}">
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h2>Контакты для связи</h2>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <p>Телефон: +7 (931) 016-90-04</p>
+        <p>
+          Почта: <a href="mailto: fyurikon@gmail.com">fyurikon@gmail.com</a>
+        </p>
+        <p>Телеграмм: @destrakt</p>
+        <p>Github: <a href="https://github.com/fyurikon">fyurikon</a></p>
+      </div>
+    </div>
+  </div>
+{% endblock %}

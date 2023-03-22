@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Авторы на которых вы подписаны.
+{% endblock %}
+
+{% block content %}
+  <div class="container py-5">
+    <h1>Авторы на которых вы подписаны</h1>
+    {% include 'posts/includes/switcher.html' %}
+      {% for post in page_obj %}
+        {% include 'includes/post.html' with show_group_posts_link=True %}
+      {% endfor %}
+    {% include 'posts/includes/paginator.html' %}
+  </div>
+{% endblock %}

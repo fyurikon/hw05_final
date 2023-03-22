@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% block title %}Технологии{% endblock %}
+{% load static %}
+{% block content %}
+<style type="text/css">
+  img {
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  h1 {
+    font-size: 50px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  h2 {
+    margin-top: 40px;
+    margin-bottom: 20px;
+  }
+
+  p {
+    font-size: 18px;
+  }
+</style>
+<div class="row">
+  <aside class="col-12 col-md-3">
+    </br>
+    <h1>Филатов Юрий</h1>
+    </br>
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6" align="center">
+      <img src="{% static 'img/me.jpg' %}" width="360">
+    </div>
+    </br>
+    <h1 align="center">Вот что я умею</h1>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">
+        Python
+      </li>
+      <li class="list-group-item">
+        Django
+      </li>
+      <li class="list-group-item">
+        FastAPI
+      </li>
+      <li class="list-group-item">
+        SQLAlchemy
+      </li>
+      <li class="list-group-item">
+        AirFlow
+      </li>
+      <li class="list-group-item">
+        SQL
+      </li>
+      <li class="list-group-item">
+        GIT
+      </li>
+      <li class="list-group-item">
+        Machine Learning
+      </li>
+      <li class="list-group-item">
+        pandas, numpy, matplotlib, seaborn, scipy, sklearn
+      </li>
+      <li class="list-group-item">
+        CatBoost, LightGBM, XGBoost
+      </li>
+      <li class="list-group-item">
+        PyTorch
+      </li>
+      <li class="list-group-item">
+        A/B tests
+      </li>
+    </ul>
+  </aside>
+  <article class="col-12 col-md-9">
+    </br>
+    <h1 align="center">Расскажу немного о себе и технологиях</h1>
+    <p>
+      Умею разрабатывать приложения на <b>Python</b>, знаю основы объектно-
+      ориентированного программирования. Владею библиотеками для анализа данных
+      и машинного обучения: <b>pandas, numpy, matplotlib, seaborn, scipy,
+      sklearn</b>
+    </p>
+    <p>
+      Знаю синтаксис <b>SQL</b>, умею составлять запросы к базам данным и
+      работать с <b>SQLAlchemy</b>
+    </p>
+    <p>
+      Знакома с основами backend-разработки и фреймворком <b>FastAPI</b>.
+      Использую <b>Git</b> для версионирования приложений и работы над
+      проектами.
+      Применяю <b>Airflow</b> для автоматизации регулярных задач
+    </p>
+    <p>
+      Знаю классические <b>ML-алгоритмы</b> и умею строить <b>ML-модели</b>
+      для решения задач регрессии, классификации и кластеризации
+    </p>
+    <p>
+      Имею опыт применения продвинутых ML-моделей на основе градиентного
+      бустинга: <b>CatBoost, LightGBM, XGBoost</b>
+    </p>
+    <p>
+      Знакома с нейронными сетями и библиотекой <b>PyTorch</b>. Умею решать
+      задачи по работе с текстами и изображениями: классификация, детекция
+      объектов, распознавание лиц, генерация текстов
+    </p>
+    <p>
+      Разбираюсь в основах <b>теории вероятностей</b> и <b>математической
+      статистики</b>. Знаю основные статистические критерии и условия их
+      применимости
+    </p>
+    <p>
+      Умею проводить <b>A/B-тесты</b> и оценивать влияние ML-моделей на
+      продукт. Понимаю, как рассчитываются объём выборки, величина эффекта и
+      продолжительность эксперимента
+    </p>
+    <p>
+      На данный момент обучюсь на курсе Яндекс.Практикум "Python-разработчик",
+      где осваиваю бэкенд разработку и фреймворк <b>Django</b>.
+    </p>
+  </article>
+</div>
+{% endblock %}
