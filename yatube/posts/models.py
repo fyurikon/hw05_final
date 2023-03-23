@@ -1,5 +1,7 @@
 from django.contrib.auth import get_user_model
+from django.core.exceptions import ValidationError
 from django.db import models
+from django.db.models import UniqueConstraint
 
 User = get_user_model()
 PUB_DATE_DESC: str = '-pub_date'
@@ -130,5 +132,18 @@ class Follow(models.Model):
         verbose_name = 'Подписка'
         verbose_name_plural = 'Подписки',
 
+        constraints = [
+            UniqueConstraint(
+                name='unique_follow',
+                fields=['user', 'author'],
+            )
+        ]
+
     def __str__(self):
         return f'{self.user.username} -> {self.author.username}'
+
+    def clean(self):
+        super().clean()
+
+        if self.user == self.author:
+            raise ValidationError('Нельзя подписаться на самого себя')
