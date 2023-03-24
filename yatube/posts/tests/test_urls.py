@@ -68,6 +68,15 @@ class PostURLTests(TestCase):
         self.assertEqual(response_not_authorized.status_code,
                          HTTPStatus.FOUND)
 
+    def test_follow_url_exists_at_desired_location(self):
+        """Page /follow/ available for authorized users only."""
+        response_authorized = self.authorized_client.get('/follow/')
+        response_not_authorized = self.guest_client.get('/follow/')
+
+        self.assertEqual(response_authorized.status_code, HTTPStatus.OK)
+        self.assertEqual(response_not_authorized.status_code,
+                         HTTPStatus.FOUND)
+
     def test_post_edit_url_exists_at_desired_location(self):
         """Page /posts/post_id/edit/ available for post author only."""
         response_authorized = self.authorized_client.get(
@@ -114,7 +123,8 @@ class PostURLTests(TestCase):
             '/create/': 'posts/create_post.html',
             f'/posts/{self.post.id}/edit/': 'posts/create_post.html',
             '/': 'posts/index.html',
-            '/unexisting_url/': 'core/404.html'
+            '/unexisting_url/': 'core/404.html',
+            '/follow/': 'posts/follow.html',
         }
         for address, template in templates_url_names.items():
             with self.subTest(address=address):

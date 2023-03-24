@@ -11,6 +11,7 @@ from django.test import Client, TestCase, override_settings
 from django.urls import reverse
 
 from ..models import Comment, Follow, Group, Post
+from ..forms import CommentForm
 
 User = get_user_model()
 NUMBER_OF_POSTS: int = 15
@@ -19,6 +20,7 @@ EXPECTED_POSTS_NUMBER_ON_SECOND_PAGE: int = 5
 ID_FOR_TEST: int = 10
 ONE_FOLLOW: int = 1
 RECENT_POST: int = 0
+RECENT_COMMENT: int = 0
 TEST_GIF = (
     b"\x47\x49\x46\x38\x39\x61\x02\x00"
     b"\x01\x00\x80\x00\x00\x00\x00\x00"
@@ -194,11 +196,12 @@ class TaskPagesTests(TestCase):
             )
         )
         post = response.context['post']
-        comment = response.context['comments'][0]
+        comment = response.context['comments'][RECENT_COMMENT]
 
         self.assertEqual(post, self.special_post)
         self.assertIn('comments', response.context)
         self.assertIn('form', response.context)
+        self.assertIsInstance(response.context['form'], CommentForm)
         self.assertEqual(comment, self.special_comment)
 
     def test_post_create_page_show_correct_context(self):
@@ -208,6 +211,7 @@ class TaskPagesTests(TestCase):
         form_fields = {
             'text': forms.fields.CharField,
             'group': forms.fields.ChoiceField,
+            'image': forms.fields.ImageField,
         }
 
         self.assertIn('is_edit', response.context)
@@ -230,6 +234,7 @@ class TaskPagesTests(TestCase):
         form_fields = {
             'text': forms.fields.CharField,
             'group': forms.fields.ChoiceField,
+            'image': forms.fields.ImageField,
         }
 
         form_field_text = response.context.get('form')['text'].value()
@@ -319,12 +324,6 @@ class TaskPagesTests(TestCase):
                 user=self.user
             ).exists())
 
-        self.authorized_client.get(
-            reverse(
-                "posts:profile_unfollow", args=[self.user_not_author.username]
-            )
-        )
-
     def test_profile_stop_follow_authorized(self):
         """Test that authorized user could stop follow the author."""
         Follow.objects.create(author=self.user_not_author, user=self.user)
@@ -390,6 +389,10 @@ class PaginatorTest(TestCase):
         cls.authorized_client = Client()
         cls.authorized_client.force_login(cls.user)
 
+        cls.user_not_author = User.objects.create(username='NotAuthor')
+        cls.authorized_client_not_author = Client()
+        cls.authorized_client_not_author.force_login(cls.user_not_author)
+
         cls.group = Group.objects.create(
             title='Тестовая группа',
             slug='some-slug',
@@ -435,3 +438,18 @@ class PaginatorTest(TestCase):
                     total_posts_on_page,
                     expected_number_of_posts
                 )
+
+    def test_paginator_on_follow_page(self):
+        """Test paginator on follow page."""
+        Follow.objects.create(
+            author=self.user,
+            user=self.user_not_author
+        )
+
+        response = self.authorized_client_not_author.get('/follow/')
+        total_posts_on_page = len(response.context['page_obj'])
+
+        self.assertEqual(
+            total_posts_on_page,
+            EXPECTED_POSTS_NUMBER
+        )
