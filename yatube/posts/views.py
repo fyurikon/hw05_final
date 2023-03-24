@@ -51,20 +51,22 @@ def profile(request, username):
     return render(request, 'posts/profile.html', context)
 
 
-def post_detail(request, post_id):
-    """Single post page."""
+def post_detail(request, post_id, form=None):
     post = get_object_or_404(
         Post.objects.select_related('group', 'author'),
         pk=post_id
     )
-    form = CommentForm()
     comments = post.comments.select_related('author')
+
+    if not form:
+        form = CommentForm()
 
     context = {
         'post': post,
         'form': form,
         'comments': comments,
     }
+
     return render(request, 'posts/post_detail.html', context)
 
 
@@ -120,13 +122,13 @@ def post_edit(request, post_id):
 
 
 @login_required
+@login_required
 def add_comment(request, post_id):
     post = get_object_or_404(
         Post.objects.select_related('group', 'author'),
         pk=post_id
     )
     form = CommentForm(request.POST or None)
-    comments = post.comments.select_related('author')
 
     if form.is_valid():
         comment = form.save(commit=False)
@@ -136,13 +138,7 @@ def add_comment(request, post_id):
 
         return redirect('posts:post_detail', post_id=post_id)
 
-    context = {
-        'post': post,
-        'form': form,
-        'comments': comments,
-    }
-
-    return render(request, 'posts/post_detail.html', context)
+    return post_detail(request, post_id, form=form)
 
 
 @login_required
