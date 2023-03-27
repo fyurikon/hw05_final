@@ -122,7 +122,6 @@ def post_edit(request, post_id):
 
 
 @login_required
-@login_required
 def add_comment(request, post_id):
     post = get_object_or_404(
         Post.objects.select_related('group', 'author'),
